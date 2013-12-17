@@ -1,5 +1,4 @@
-# generator-assemble-sass-browserify \[![Build Status](https://secure.travis-ci.org/makotot/generator-assemble-sass-browserify.png?branch=master)](https://travis-ci.org/makotot/generator-assemble-sass-browserify)
-
+# generator-assemble-sass-browserify
 A generator for [Yeoman](http://yeoman.io).
 
 
