@@ -1,0 +1,12 @@
+node_modules/
+npm-debug.log
+.DS_Store
+*.idea
+.svn
+.swp
+.sass-cache
+bower_components/
+*.sublime-workspace
+*.sublime-project
+._*
+Icon

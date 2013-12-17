@@ -1,0 +1,35 @@
+{
+  "name": "<%= name %>",
+  "version": "0.0.0",
+  "description": "description",
+  "repository": {
+	"type": "",
+	"url": ""
+  },
+  "dependencies": {
+	"grunt": "*",
+	"assemble": "*",
+	"load-grunt-tasks": "*",
+	"grunt-newer": "*",
+	"grunt-contrib-connect": "*",
+	"grunt-contrib-watch": "*",
+	"grunt-contrib-jshint": "*",
+	"grunt-contrib-sass": "*",
+	"grunt-contrib-compass": "*",
+	"grunt-contrib-copy": "*",
+	"grunt-contrib-clean": "*",
+	"grunt-contrib-csslint": "https://github.com/shootaroo/grunt-contrib-csslint/tarball/custom",
+	"grunt-contrib-compress": "*",
+	"grunt-contrib-htmlmin": "*",
+	"grunt-contrib-imagemin": "*",
+	"grunt-contrib-uglify": "*",
+	"grunt-contrib-yuidoc": "*",
+    "grunt-htmlhint": "https://github.com/shootaroo/grunt-htmlhint/tarball/custom",
+	"grunt-styleguide": "*",
+	"jshint-stylish": "*",
+	"grunt-bower-task": "*",
+	"grunt-browserify": "*",
+	"grunt-prettify": "*",
+	"grunt-autoprefixer": "*"
+  }
+}
