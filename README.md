@@ -25,7 +25,7 @@ Yeoman travels light. He didn't pack any generators when he moved in. You can th
 To install generator-assemble-sass-browserify from npm, run:
 
 ```
-$ npm install -g generator-assemble-sass-browserify
+$ npm install -g https://github.com/leihauoli/generator-assemble-sass-browserify/tarball/master
 ```
 
 Finally, initiate the generator:
