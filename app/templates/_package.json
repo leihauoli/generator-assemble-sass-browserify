@@ -6,7 +6,7 @@
 		"type": "",
 		"url": ""
 	},
-	"dependencies": {
+	"devDependencies": {
 		"grunt": "*",
 		"assemble": "*",
 		"load-grunt-tasks": "*",
