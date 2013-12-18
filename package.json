@@ -1,7 +1,7 @@
 {
   "name": "generator-assemble-sass-browserify",
   "version": "0.0.0",
-  "description": "A generator for Yeoman",
+  "description": "yeoman generator using assemble, sass and browserify",
   "keywords": [
     "yeoman-generator"
   ],
