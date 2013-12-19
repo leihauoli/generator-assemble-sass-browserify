@@ -63,7 +63,7 @@ module.exports = function (grunt) {
 			img: {
 				expand: true,
 				cwd: '<%%= path.src %>/assets/images',
-				src: ['**/*.*'],
+        src: ['**/*.{png,jpg,jpeg,gif}'],
 				dest: '<%%= path.dev %>/assets/images'
 			},
 			build: {
@@ -393,7 +393,11 @@ module.exports = function (grunt) {
 			js: {
 				files: ['<%%= path.src %>/**/*.js'],
 				tasks: ['newer:browserify', 'jshint:dev', 'newer:copy:js']
-			}
+			},
+      img: {
+        files: ['<%%= path.src %>/**/*.{png,jpg,jpeg,gif}'],
+        tasks: ['newer:copy:img']
+      }
 		},
 
 		yuidoc: {
