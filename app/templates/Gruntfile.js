@@ -435,17 +435,96 @@ module.exports = function (grunt) {
 	});
 
 
-	require('load-grunt-tasks')(grunt, {
-		pattern: ['grunt-*', 'assemble']
+//	require('load-grunt-tasks')(grunt, {
+//		pattern: ['grunt-*', 'assemble']
+//	});
+	grunt.registerTask('default', [], function () {
+		grunt.loadNpmTasks('assemble');
+		grunt.loadNpmTasks('grunt-contrib-copy');
+		grunt.loadNpmTasks('grunt-contrib-compass');
+		grunt.loadNpmTasks('grunt-browserify');
+		grunt.loadNpmTasks('grunt-prettify');
+		grunt.loadNpmTasks('grunt-newer');
+
+		grunt.task.run('newer:assemble', 'newer:compass', 'newer:browserify', 'newer:prettify');
 	});
 
-	grunt.registerTask('default', ['compile:dev', 'lint:dev']);
-	grunt.registerTask('install', ['newer:bower:install', 'newer:copy:bower']);
-	grunt.registerTask('compile:dev', ['newer:assemble:dev', 'newer:compass', 'newer:browserify', 'newer:prettify']);
-	grunt.registerTask('compile:prod', ['newer:assemble:prod', 'newer:compass', 'newer:browserify', 'newer:prettify']);
-	grunt.registerTask('doc', ['yuidoc']);
-	grunt.registerTask('lint:dev', ['htmlhint:dev', 'csslint:dev', 'jshint:dev']);
-	grunt.registerTask('lint:prod', ['htmlhint:prod', 'csslint:prod', 'jshint:prod']);
-	grunt.registerTask('serve', ['compile:dev', 'lint:dev', 'newer:copy:sass', 'newer:copy:js', 'newer:copy:img', 'connect', 'watch']);
-	grunt.registerTask('build', ['compile:prod', 'lint:prod', 'doc', 'copy:build']);
+	grunt.registerTask('install', [], function () {
+		grunt.loadNpmTasks('grunt-bower-task');
+		grunt.loadNpmTasks('grunt-contrib-copy');
+		grunt.loadNpmTasks('grunt-newer');
+
+		grunt.task.run('newer:bower:install', 'newer:copy:bower');
+	});
+
+	grunt.registerTask('compile:dev', [], function () {
+		grunt.loadNpmTasks('assemble');
+		grunt.loadNpmTasks('grunt-contrib-compass');
+		grunt.loadNpmTasks('grunt-browserify');
+		grunt.loadNpmTasks('grunt-prettify');
+		grunt.loadNpmTasks('grunt-newer');
+
+		grunt.task.run('newer:assemble:dev', 'newer:compass', 'newer:browserify', 'newer:prettify');
+	});
+
+	grunt.registerTask('compile:prod', [], function () {
+		grunt.loadNpmTasks('assemble');
+		grunt.loadNpmTasks('grunt-contrib-compass');
+		grunt.loadNpmTasks('grunt-browserify');
+		grunt.loadNpmTasks('grunt-prettify');
+
+		grunt.task.run('assemble:prod', 'compass', 'browserify', 'prettify');
+	});
+
+	grunt.registerTask('doc', [], function () {
+		grunt.loadNpmTasks('grunt-contrib-yuidoc');
+
+		grunt.task.run('yuidoc');
+	});
+
+	grunt.registerTask('lint:dev', [], function () {
+		grunt.loadNpmTasks('grunt-htmlhint');
+		grunt.loadNpmTasks('grunt-contrib-csslint');
+		grunt.loadNpmTasks('grunt-contrib-jshint');
+
+		grunt.task.run('htmlhint:dev', 'csslint:dev', 'jshint:dev');
+	});
+
+	grunt.registerTask('lint:prod', [], function () {
+		grunt.loadNpmTasks('grunt-htmlhint');
+		grunt.loadNpmTasks('grunt-contrib-csslint');
+		grunt.loadNpmTasks('grunt-contrib-jshint');
+
+		grunt.task.run('htmlhint:prod', 'csslint:prod', 'jshint:prod');
+	});
+
+	grunt.registerTask('serve', [], function () {
+		grunt.loadNpmTasks('assemble');
+		grunt.loadNpmTasks('grunt-contrib-compass');
+		grunt.loadNpmTasks('grunt-browserify');
+		grunt.loadNpmTasks('grunt-prettify');
+		grunt.loadNpmTasks('grunt-newer');
+		grunt.loadNpmTasks('grunt-htmlhint');
+		grunt.loadNpmTasks('grunt-contrib-csslint');
+		grunt.loadNpmTasks('grunt-contrib-jshint');
+		grunt.loadNpmTasks('grunt-contrib-copy');
+		grunt.loadNpmTasks('grunt-contrib-connect');
+		grunt.loadNpmTasks('grunt-contrib-watch');
+
+		grunt.task.run('newer:assemble:dev', 'newer:compass', 'newer:browserify', 'newer:prettify', 'htmlhint:dev', 'csslint:dev', 'jshint:dev', 'newer:copy:sass', 'newer:copy:js', 'newer:copy:img', 'connect', 'watch');
+	});
+
+	grunt.registerTask('build', [], function () {
+		grunt.loadNpmTasks('assemble');
+		grunt.loadNpmTasks('grunt-contrib-compass');
+		grunt.loadNpmTasks('grunt-browserify');
+		grunt.loadNpmTasks('grunt-prettify');
+		grunt.loadNpmTasks('grunt-htmlhint');
+		grunt.loadNpmTasks('grunt-contrib-csslint');
+		grunt.loadNpmTasks('grunt-contrib-jshint');
+		grunt.loadNpmTasks('grunt-contrib-yuidoc');
+		grunt.loadNpmTasks('grunt-contrib-copy');
+
+		grunt.task.run('assemble:prod', 'compass', 'browserify', 'prettify', 'htmlhint:prod', 'csslint:prod', 'jshint:prod', 'yuidoc', 'copy:build');
+	});
 };
