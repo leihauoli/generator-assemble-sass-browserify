@@ -388,7 +388,7 @@ module.exports = function (grunt) {
 			},
 			css: {
 				files: ['<%%= path.src %>/**/*.scss'],
-				tasks: ['compass', 'newer:autoprefixer', 'newer:copy:sass']
+				tasks: ['compass', 'newer:autoprefixer', 'copy:sass']
 			},
 			js: {
 				files: ['<%%= path.src %>/**/*.js'],
