@@ -248,7 +248,7 @@ module.exports = function (grunt) {
 
 		cssmin: {
 			options: {
-				report: 'gzip'
+				report: 'min'
 			},
 			min: {
 				files: [
@@ -309,7 +309,7 @@ module.exports = function (grunt) {
 		uglify: {
 			options: {
 				preserveComments: 'some',
-				report: 'gzip'
+				report: 'min'
 			},
 			min: {
 				files: [
