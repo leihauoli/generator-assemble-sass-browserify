@@ -435,95 +435,77 @@ module.exports = function (grunt) {
 	});
 
 
-//	require('load-grunt-tasks')(grunt, {
-//		pattern: ['grunt-*', 'assemble']
-//	});
+
+	var loadGrunt = require('load-grunt-tasks');
+
 	grunt.registerTask('default', [], function () {
-		grunt.loadNpmTasks('assemble');
-		grunt.loadNpmTasks('grunt-contrib-copy');
-		grunt.loadNpmTasks('grunt-contrib-compass');
-		grunt.loadNpmTasks('grunt-browserify');
-		grunt.loadNpmTasks('grunt-prettify');
-		grunt.loadNpmTasks('grunt-newer');
+		loadGrunt(grunt, {
+			pattern: ['assemble', 'grunt-contrib-copy', 'grunt-contrib-compass', 'grunt-browserify', 'grunt-prettify', 'grunt-newer']
+		});
 
 		grunt.task.run('newer:assemble', 'newer:compass', 'newer:browserify', 'newer:prettify');
 	});
 
 	grunt.registerTask('install', [], function () {
-		grunt.loadNpmTasks('grunt-bower-task');
-		grunt.loadNpmTasks('grunt-contrib-copy');
-		grunt.loadNpmTasks('grunt-newer');
+		loadGrunt(grunt, {
+			pattern: ['grunt-bower-task', 'grunt-contrib-copy', 'grunt-newer']
+		});
 
 		grunt.task.run('newer:bower:install', 'newer:copy:bower');
 	});
 
 	grunt.registerTask('compile:dev', [], function () {
-		grunt.loadNpmTasks('assemble');
-		grunt.loadNpmTasks('grunt-contrib-compass');
-		grunt.loadNpmTasks('grunt-browserify');
-		grunt.loadNpmTasks('grunt-prettify');
-		grunt.loadNpmTasks('grunt-newer');
+		loadGrunt(grunt, {
+			pattern: ['assemble', 'grunt-contrib-compass', 'grunt-browserify', 'grunt-prettify', 'grunt-newer']
+		});
 
 		grunt.task.run('newer:assemble:dev', 'newer:compass', 'newer:browserify', 'newer:prettify');
 	});
 
 	grunt.registerTask('compile:prod', [], function () {
-		grunt.loadNpmTasks('assemble');
-		grunt.loadNpmTasks('grunt-contrib-compass');
-		grunt.loadNpmTasks('grunt-browserify');
-		grunt.loadNpmTasks('grunt-prettify');
+		loadGrunt(grunt, {
+			pattern: ['assemble', 'grunt-contrib-compass', 'grunt-browserify', 'grunt-prettify']
+		});
 
 		grunt.task.run('assemble:prod', 'compass', 'browserify', 'prettify');
 	});
 
 	grunt.registerTask('doc', [], function () {
-		grunt.loadNpmTasks('grunt-contrib-yuidoc');
+		loadGrunt(grunt, {
+			pattern: ['grunt-contrib-yuidoc']
+		});
 
 		grunt.task.run('yuidoc');
 	});
 
 	grunt.registerTask('lint:dev', [], function () {
-		grunt.loadNpmTasks('grunt-htmlhint');
-		grunt.loadNpmTasks('grunt-contrib-csslint');
-		grunt.loadNpmTasks('grunt-contrib-jshint');
+		loadGrunt(grunt, {
+			pattern: ['grunt-htmlhint', 'grunt-contrib-csslint', 'grunt-contrib-jshint']
+		});
 
 		grunt.task.run('htmlhint:dev', 'csslint:dev', 'jshint:dev');
 	});
 
 	grunt.registerTask('lint:prod', [], function () {
-		grunt.loadNpmTasks('grunt-htmlhint');
-		grunt.loadNpmTasks('grunt-contrib-csslint');
-		grunt.loadNpmTasks('grunt-contrib-jshint');
+		loadGrunt(grunt, {
+			pattern: ['grunt-htmlhint', 'grunt-contrib-csslint', 'grunt-contrib-jshint']
+		});
 
 		grunt.task.run('htmlhint:prod', 'csslint:prod', 'jshint:prod');
 	});
 
 	grunt.registerTask('serve', [], function () {
-		grunt.loadNpmTasks('assemble');
-		grunt.loadNpmTasks('grunt-contrib-compass');
-		grunt.loadNpmTasks('grunt-browserify');
-		grunt.loadNpmTasks('grunt-prettify');
-		grunt.loadNpmTasks('grunt-newer');
-		grunt.loadNpmTasks('grunt-htmlhint');
-		grunt.loadNpmTasks('grunt-contrib-csslint');
-		grunt.loadNpmTasks('grunt-contrib-jshint');
-		grunt.loadNpmTasks('grunt-contrib-copy');
-		grunt.loadNpmTasks('grunt-contrib-connect');
-		grunt.loadNpmTasks('grunt-contrib-watch');
+		loadGrunt(grunt, {
+			pattern: ['assemble', 'grunt-contrib-compass', 'grunt-browserify', 'grunt-prettify', 'grunt-newer', 'grunt-htmlhint', 'grunt-contrib-csslint', 'grunt-contrib-jshint', 'grunt-contrib-copy', 'grunt-contrib-connect', 'grunt-contrib-watch']
+		});
 
 		grunt.task.run('newer:assemble:dev', 'newer:compass', 'newer:browserify', 'newer:prettify', 'htmlhint:dev', 'csslint:dev', 'jshint:dev', 'newer:copy:sass', 'newer:copy:js', 'newer:copy:img', 'connect', 'watch');
 	});
 
 	grunt.registerTask('build', [], function () {
-		grunt.loadNpmTasks('assemble');
-		grunt.loadNpmTasks('grunt-contrib-compass');
-		grunt.loadNpmTasks('grunt-browserify');
-		grunt.loadNpmTasks('grunt-prettify');
-		grunt.loadNpmTasks('grunt-htmlhint');
-		grunt.loadNpmTasks('grunt-contrib-csslint');
-		grunt.loadNpmTasks('grunt-contrib-jshint');
-		grunt.loadNpmTasks('grunt-contrib-yuidoc');
-		grunt.loadNpmTasks('grunt-contrib-copy');
+		loadGrunt(grunt, {
+			pattern: ['assemble', 'grunt-contrib-compass', 'grunt-browserify', 'grunt-prettify', 'grunt-htmlhint', 'grunt-contrib-csslint', 'grunt-contrib-jshint', 'grunt-contrib-yuidoc', 'grunt-contrib-copy']
+		});
 
 		grunt.task.run('assemble:prod', 'compass', 'browserify', 'prettify', 'htmlhint:prod', 'csslint:prod', 'jshint:prod', 'yuidoc', 'copy:build');
 	});
