@@ -388,16 +388,16 @@ module.exports = function (grunt) {
 			},
 			css: {
 				files: ['<%%= path.src %>/**/*.scss'],
-				tasks: ['newer:compass', 'newer:autoprefixer', 'newer:copy:sass']
+				tasks: ['compass', 'newer:autoprefixer', 'newer:copy:sass']
 			},
 			js: {
 				files: ['<%%= path.src %>/**/*.js'],
-				tasks: ['newer:browserify', 'jshint:dev', 'newer:copy:js']
+				tasks: ['browserify', 'jshint:dev', 'newer:copy:js']
 			},
-      img: {
-        files: ['<%%= path.src %>/**/*.{png,jpg,jpeg,gif}'],
-        tasks: ['newer:copy:img']
-      }
+			img: {
+				files: ['<%%= path.src %>/**/*.{png,jpg,jpeg,gif}'],
+				tasks: ['newer:copy:img']
+			}
 		},
 
 		yuidoc: {
@@ -443,7 +443,7 @@ module.exports = function (grunt) {
 			pattern: ['assemble', 'grunt-contrib-copy', 'grunt-contrib-compass', 'grunt-browserify', 'grunt-prettify', 'grunt-newer']
 		});
 
-		grunt.task.run('newer:assemble', 'newer:compass', 'newer:browserify', 'newer:prettify');
+		grunt.task.run('newer:assemble', 'compass', 'browserify', 'newer:prettify');
 	});
 
 	grunt.registerTask('install', [], function () {
@@ -459,7 +459,7 @@ module.exports = function (grunt) {
 			pattern: ['assemble', 'grunt-contrib-compass', 'grunt-browserify', 'grunt-prettify', 'grunt-newer']
 		});
 
-		grunt.task.run('newer:assemble:dev', 'newer:compass', 'newer:browserify', 'newer:prettify');
+		grunt.task.run('newer:assemble:dev', 'compass', 'browserify', 'newer:prettify');
 	});
 
 	grunt.registerTask('compile:prod', [], function () {
@@ -499,7 +499,7 @@ module.exports = function (grunt) {
 			pattern: ['assemble', 'grunt-contrib-compass', 'grunt-browserify', 'grunt-prettify', 'grunt-newer', 'grunt-htmlhint', 'grunt-contrib-csslint', 'grunt-contrib-jshint', 'grunt-contrib-copy', 'grunt-contrib-connect', 'grunt-contrib-watch']
 		});
 
-		grunt.task.run('newer:assemble:dev', 'newer:compass', 'newer:browserify', 'newer:prettify', 'htmlhint:dev', 'csslint:dev', 'jshint:dev', 'newer:copy:sass', 'newer:copy:js', 'newer:copy:img', 'connect', 'watch');
+		grunt.task.run('newer:assemble:dev', 'compass', 'browserify', 'newer:prettify', 'htmlhint:dev', 'csslint:dev', 'jshint:dev', 'newer:copy:sass', 'newer:copy:js', 'newer:copy:img', 'connect', 'watch');
 	});
 
 	grunt.registerTask('build', [], function () {
