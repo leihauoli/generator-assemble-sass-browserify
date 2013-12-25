@@ -9,7 +9,6 @@
 	"devDependencies": {
 		"grunt": "*",
 		"assemble": "*",
-		"load-grunt-tasks": "*",
 		"grunt-newer": "*",
 		"grunt-contrib-connect": "*",
 		"grunt-contrib-watch": "*",
@@ -31,6 +30,7 @@
 		"grunt-browserify": "*",
 		"grunt-prettify": "*",
 		"grunt-autoprefixer": "*",
-		"time-grunt": "*"
+		"time-grunt": "*",
+		"jit-grunt": "*"
 	}
 }

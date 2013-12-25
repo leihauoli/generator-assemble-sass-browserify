@@ -14,6 +14,7 @@ module.exports = function (grunt) {
 			dev: 'html',
 			build: 'build',
 			doc: 'doc',
+			deliver: 'deliver',
 			layouts: '<%%= path.src %>/layouts',
 			pages: '<%%= path.src %>/pages',
 			data: '<%%= path.src %>/data',
@@ -355,7 +356,7 @@ module.exports = function (grunt) {
 		compress: {
 			deliver: {
 				options: {
-					archive: '<%%= path.deliver %>/<%= pkg.name %>_<%%= date %>.zip'
+					archive: '<%%= path.deliver %>/<%%= pkg.name %>_<%%= date %>.zip'
 				},
 				files: [
 					{
@@ -448,85 +449,27 @@ module.exports = function (grunt) {
 
 
 
-	var loadGrunt = require('load-grunt-tasks');
-
-	grunt.registerTask('default', [], function () {
-		loadGrunt(grunt, {
-			pattern: ['assemble', 'grunt-contrib-copy', 'grunt-contrib-compass', 'grunt-browserify', 'grunt-prettify', 'grunt-newer']
-		});
-
-		grunt.task.run('newer:assemble', 'compass', 'browserify', 'newer:prettify');
+	require('jit-grunt')(grunt, {
+		bower: 'grunt-bower-task'
 	});
 
-	grunt.registerTask('install', [], function () {
-		loadGrunt(grunt, {
-			pattern: ['grunt-bower-task', 'grunt-contrib-copy', 'grunt-newer']
-		});
+	grunt.registerTask('default', ['newer:assemble', 'compass', 'browserify', 'newer:prettify']);
 
-		grunt.task.run('newer:bower:install', 'newer:copy:bower');
-	});
+	grunt.registerTask('install', ['newer:bower:install', 'newer:copy:bower']);
 
-	grunt.registerTask('compile:dev', [], function () {
-		loadGrunt(grunt, {
-			pattern: ['assemble', 'grunt-contrib-compass', 'grunt-browserify', 'grunt-prettify', 'grunt-newer']
-		});
+	grunt.registerTask('compile:dev', ['newer:assemble:dev', 'compass', 'browserify', 'newer:prettify']);
 
-		grunt.task.run('newer:assemble:dev', 'compass', 'browserify', 'newer:prettify');
-	});
+	grunt.registerTask('compile:prod', ['assemble:prod', 'compass', 'browserify', 'prettify']);
 
-	grunt.registerTask('compile:prod', [], function () {
-		loadGrunt(grunt, {
-			pattern: ['assemble', 'grunt-contrib-compass', 'grunt-browserify', 'grunt-prettify']
-		});
+	grunt.registerTask('doc', ['yuidoc']);
 
-		grunt.task.run('assemble:prod', 'compass', 'browserify', 'prettify');
-	});
+	grunt.registerTask('lint:dev', ['htmlhint:dev', 'csslint:dev', 'jshint:dev']);
 
-	grunt.registerTask('doc', [], function () {
-		loadGrunt(grunt, {
-			pattern: ['grunt-contrib-yuidoc']
-		});
+	grunt.registerTask('lint:prod', ['htmlhint:prod', 'csslint:prod', 'jshint:prod']);
 
-		grunt.task.run('yuidoc');
-	});
+	grunt.registerTask('serve', ['newer:assemble:dev', 'compass', 'browserify', 'newer:prettify', 'htmlhint:dev', 'csslint:dev', 'jshint:dev', 'newer:copy:sass', 'newer:copy:js', 'newer:copy:img', 'connect', 'watch']);
 
-	grunt.registerTask('lint:dev', [], function () {
-		loadGrunt(grunt, {
-			pattern: ['grunt-htmlhint', 'grunt-contrib-csslint', 'grunt-contrib-jshint']
-		});
+	grunt.registerTask('build', ['assemble:prod', 'compass', 'browserify', 'prettify', 'htmlhint:prod', 'csslint:prod', 'jshint:prod', 'yuidoc', 'copy:build']);
 
-		grunt.task.run('htmlhint:dev', 'csslint:dev', 'jshint:dev');
-	});
-
-	grunt.registerTask('lint:prod', [], function () {
-		loadGrunt(grunt, {
-			pattern: ['grunt-htmlhint', 'grunt-contrib-csslint', 'grunt-contrib-jshint']
-		});
-
-		grunt.task.run('htmlhint:prod', 'csslint:prod', 'jshint:prod');
-	});
-
-	grunt.registerTask('serve', [], function () {
-		loadGrunt(grunt, {
-			pattern: ['assemble', 'grunt-contrib-compass', 'grunt-browserify', 'grunt-prettify', 'grunt-newer', 'grunt-htmlhint', 'grunt-contrib-csslint', 'grunt-contrib-jshint', 'grunt-contrib-copy', 'grunt-contrib-connect', 'grunt-contrib-watch']
-		});
-
-		grunt.task.run('newer:assemble:dev', 'compass', 'browserify', 'newer:prettify', 'htmlhint:dev', 'csslint:dev', 'jshint:dev', 'newer:copy:sass', 'newer:copy:js', 'newer:copy:img', 'connect', 'watch');
-	});
-
-	grunt.registerTask('build', [], function () {
-		loadGrunt(grunt, {
-			pattern: ['assemble', 'grunt-contrib-compass', 'grunt-browserify', 'grunt-prettify', 'grunt-htmlhint', 'grunt-contrib-csslint', 'grunt-contrib-jshint', 'grunt-contrib-yuidoc', 'grunt-contrib-copy']
-		});
-
-		grunt.task.run('assemble:prod', 'compass', 'browserify', 'prettify', 'htmlhint:prod', 'csslint:prod', 'jshint:prod', 'yuidoc', 'copy:build');
-	});
-
-	grunt.registerTask('deliver', [], function () {
-		loadGrunt(grunt, {
-			pattern: ['assemble', 'grunt-contrib-compass', 'grunt-browserify', 'grunt-prettify', 'grunt-htmlhint', 'grunt-contrib-csslint', 'grunt-contrib-jshint', 'grunt-contrib-yuidoc', 'grunt-contrib-compress']
-		});
-
-		grunt.task.run('assemble:prod', 'compass', 'browserify', 'prettify', 'htmlhint:prod', 'csslint:prod', 'jshint:prod', 'yuidoc', 'compress:deliver');
-	});
+	grunt.registerTask('deliver', ['assemble:prod', 'compass', 'browserify', 'prettify', 'htmlhint:prod', 'csslint:prod', 'jshint:prod', 'yuidoc', 'compress:deliver']);
 };
