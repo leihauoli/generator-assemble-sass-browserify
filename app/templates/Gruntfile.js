@@ -18,7 +18,7 @@ module.exports = function (grunt) {
 			pages: '<%%= path.src %>/pages',
 			data: '<%%= path.src %>/data',
 			bower: 'bower_components',
-			reports: '<%%= path.build %>/<%%= path.date %>/build'
+			reports: '<%%= path.build %>/reports'
 		},
 
 		bower: {
@@ -77,7 +77,7 @@ module.exports = function (grunt) {
 							'<%%= path.dev %>/**',
 							'!<%%= path.dev %>/assets/images/dummy/**'
 						],
-						dest: '<%%= path.build %>/<%%= date %>/'
+						dest: '<%%= path.build %>/'
 					},
 					{
 						src: [
@@ -88,11 +88,11 @@ module.exports = function (grunt) {
 							'!<%%= path.layouts %>/**',
 							'!<%%= path.pages %>/**',
 						],
-						dest: '<%%= path.build %>/<%%= date %>/'
+						dest: '<%%= path.build %>/'
 					},
 					{
 						src: ['<%%= path.doc %>/js/**'],
-						dest: '<%%= path.build %>/<%%= date %>/'
+						dest: '<%%= path.build %>/'
 					}
 				]
 			}
@@ -353,14 +353,26 @@ module.exports = function (grunt) {
 		},
 
 		compress: {
-			dist: {
+			deliver: {
 				options: {
-					archive: '<%%= path.build %>/assets.zip'
+					archive: '<%%= path.deliver %>/<%= pkg.name %>_<%%= date %>.zip'
 				},
-				expand: true,
-				cwd: '<%%= path.dist %>/',
-				src: ['**/*'],
-				dest: 'assets/'
+				files: [
+					{
+						expand: true,
+						src: [
+							'<%%= path.dev %>/**',
+							'!<%%= path.dev %>/assets/images/dummy/**',
+							'<%%= path.src %>/**',
+							'!<%%= path.src %>/**/*.hbs',
+							'!<%%= path.src %>/data/**',
+							'!<%%= path.src %>/assets/images/dummy/**',
+							'!<%%= path.layouts %>/**',
+							'!<%%= path.pages %>/**',
+							'<%%= path.doc %>/js/**',
+						]
+					}
+				]
 			}
 		},
 
@@ -508,5 +520,13 @@ module.exports = function (grunt) {
 		});
 
 		grunt.task.run('assemble:prod', 'compass', 'browserify', 'prettify', 'htmlhint:prod', 'csslint:prod', 'jshint:prod', 'yuidoc', 'copy:build');
+	});
+
+	grunt.registerTask('deliver', [], function () {
+		loadGrunt(grunt, {
+			pattern: ['assemble', 'grunt-contrib-compass', 'grunt-browserify', 'grunt-prettify', 'grunt-htmlhint', 'grunt-contrib-csslint', 'grunt-contrib-jshint', 'grunt-contrib-yuidoc', 'grunt-contrib-compress']
+		});
+
+		grunt.task.run('assemble:prod', 'compass', 'browserify', 'prettify', 'htmlhint:prod', 'csslint:prod', 'jshint:prod', 'yuidoc', 'compress:deliver');
 	});
 };
