@@ -12,3 +12,4 @@ bower_components/
 Icon
 html/
 source/assets/css/
+source/assets/js/*.js
