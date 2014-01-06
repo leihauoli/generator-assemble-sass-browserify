@@ -397,11 +397,11 @@ module.exports = function (grunt) {
 			},
 			html: {
 				files: ['<%%= path.src %>/**/*.{hbs,md}', '<%%= path.layouts %>/**', '<%%= path.data %>/**'],
-				tasks: ['newer:assemble:dev']
+				tasks: ['assemble:dev']
 			},
 			css: {
 				files: ['<%%= path.src %>/**/*.scss'],
-				tasks: ['compass', 'newer:autoprefixer', 'copy:sass']
+				tasks: ['compass', 'newer:autoprefixer', 'newer:copy:sass']
 			},
 			js: {
 				files: ['<%%= path.src %>/**/*.js'],
@@ -453,11 +453,11 @@ module.exports = function (grunt) {
 		bower: 'grunt-bower-task'
 	});
 
-	grunt.registerTask('default', ['newer:assemble', 'compass', 'browserify', 'newer:prettify']);
+	grunt.registerTask('default', ['assemble', 'compass', 'browserify', 'newer:prettify']);
 
 	grunt.registerTask('install', ['newer:bower:install', 'newer:copy:bower']);
 
-	grunt.registerTask('compile:dev', ['newer:assemble:dev', 'compass', 'browserify', 'newer:prettify']);
+	grunt.registerTask('compile:dev', ['assemble:dev', 'compass', 'browserify', 'newer:prettify']);
 
 	grunt.registerTask('compile:prod', ['assemble:prod', 'compass', 'browserify', 'prettify']);
 
@@ -467,7 +467,7 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('lint:prod', ['htmlhint:prod', 'csslint:prod', 'jshint:prod']);
 
-	grunt.registerTask('serve', ['newer:assemble:dev', 'compass', 'browserify', 'newer:prettify', 'htmlhint:dev', 'csslint:dev', 'jshint:dev', 'newer:copy:sass', 'newer:copy:js', 'newer:copy:img', 'connect', 'watch']);
+	grunt.registerTask('serve', ['assemble:dev', 'compass', 'browserify', 'newer:prettify', 'htmlhint:dev', 'csslint:dev', 'jshint:dev', 'newer:copy:sass', 'newer:copy:js', 'newer:copy:img', 'connect', 'watch']);
 
 	grunt.registerTask('build', ['assemble:prod', 'compass', 'browserify', 'prettify', 'htmlhint:prod', 'csslint:prod', 'jshint:prod', 'yuidoc', 'copy:build']);
 
