@@ -395,6 +395,9 @@ module.exports = function (grunt) {
 				spawn: false,
 				livereload: '<%%= connect.options.livereload %>'
 			},
+			grunt: {
+				files: ['Gruntfile.js']
+			},
 			html: {
 				files: ['<%%= path.src %>/**/*.{hbs,md}', '<%%= path.layouts %>/**', '<%%= path.data %>/**'],
 				tasks: ['assemble:dev']
