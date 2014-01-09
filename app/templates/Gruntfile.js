@@ -396,7 +396,7 @@ module.exports = function (grunt) {
 				livereload: '<%%= connect.options.livereload %>'
 			},
 			grunt: {
-				files: ['Gruntfile.js']
+				files: ['Gruntfile.js', 'package.json']
 			},
 			html: {
 				files: ['<%%= path.src %>/**/*.{hbs,md}', '<%%= path.layouts %>/**', '<%%= path.data %>/**'],
